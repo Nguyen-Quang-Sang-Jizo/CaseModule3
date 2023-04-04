@@ -1,0 +1,61 @@
+create database productManager;
+use productManager;
+
+create table Users(
+id int primary key auto_increment,
+usename varchar(100) not null,
+email varchar(100) not null,
+passwords varchar(10) not null,
+phone int(11) not null,
+address varchar(255) not null,
+roles varchar(10) not null
+);
+
+
+create table Bill(
+id int primary key auto_increment,
+times datetime not null,
+billstatus varchar(255) not null,
+useId int,
+foreign key (useId) references Users(id)
+);
+
+
+create table Cart(
+id int primary key auto_increment,
+quantity int not null,
+billId int,
+foreign key (billId) references Bill(id),
+productId int,
+foreign key (productId) references Product(id)
+);
+
+create table Product(
+id int primary key auto_increment,
+productName varchar(100) not null,
+price int default 0,
+quantity int default 0,
+image text not null,
+categoryId int,
+foreign key(categoryId) references Category(id)
+);
+
+create table Category(
+id int primary key auto_increment,
+categoryName varchar(255) not null
+);
+
+
+
+insert into Bill ( times,billstatus, useId ) value ( "2023-04-05", "chưa thanhh toán", 1);
+insert into Bill ( times,billstatus, useId ) value ( "2023-04-06","chưa thanh toán", 1);
+
+insert into Category(categoryName) value ("decor phòng khách");
+insert into Category(categoryName) value ("decor phòng ngủ");
+insert into Category(categoryName) value ("decor vintage");
+insert into Category(categoryName) value ("decor kệ tủ");
+
+insert into Product(productName, price, quantity, image, categoryId) value ("hình doraemon", 120000, 4, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTltKLz8wPrNmFB8ym5Vnao5eH5jdOBZOqIwQ&usqp=CAU",2);
+insert into Product(productName, price, quantity, image, categoryId) value ("lọ hoa", 130000, 4, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCziNQTV95wtsSjP6ZO-zusrSa9B7IAb99_Q&usqp=CAU",1);
+
+insert into Cart( quantity, billId, productId) value (2, 1, 1);
