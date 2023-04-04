@@ -19,6 +19,17 @@ class UserService {
             })
         })
     }
+    postUser = (userRegister) => {
+        return new Promise((resolve, reject) =>{
+            this.connect.query(`insert into users (usename, email, passwords, phone, address, roles) value ('${userRegister.usename}','${userRegister.email}','${userRegister.passwords}',${userRegister.phone}, '${userRegister.address}', '${userRegister.roles}');`,(error, userRegisters) =>{
+                if (error) {
+                    reject(error)
+                }else {
+                    resolve(userRegisters)
+                }
+            })
+        })
+    }
 }
 
 module.exports = new UserService();

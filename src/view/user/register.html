@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,37 +7,33 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-
     <style>
         * {
             padding: 0;
             margin: 0;
             box-sizing: border-box;
-
         }
 
         html {
             color: #333;
             font-size: 62.5%;
             font-family: 'Open Sans', sans-serif;
-
         }
 
         .main {
+            background-color: rgb(248, 241, 233);
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            background-color: rgb(248, 241, 233);
         }
 
         .form {
-            width: 450px;
-            height: 450px;
+            width: 460px;
             min-height: 200px;
             padding: 32px 24px;
             text-align: center;
             background: #fff;
-            border-radius: 2px;
+            border-radius: 4px;
             margin: 24px;
             align-self: center;
             box-shadow: 0 2px 5px 0 rgba(51, 62, 73, .1);
@@ -68,7 +65,7 @@
 
         .form-label {
             font-weight: 700;
-            padding: 20px 0 10px 0;
+            padding-bottom: 6px;
             line-height: 1.8rem;
             font-size: 1.4rem;
         }
@@ -84,7 +81,6 @@
 
         .form-control:hover {
             border-color: #1dbfaf;
-
         }
 
         .form-group.invalid .form-control {
@@ -124,17 +120,17 @@
         }
 
 
+
         .auth-form__socials {
             background-color: #F5F5F5;
-            padding: 16px 40px;
+            padding: 16px 36px;
             display: flex;
             justify-content: space-between;
-            margin-top: 35px;
+            margin-top: 20px;
         }
 
         .auth-form__socials-icon {
             font-size: 2rem;
-
         }
 
         .auth-form__socials--facebook {
@@ -149,7 +145,8 @@
 
         .auth-form__socials-title {
             font-size: 1rem;
-            margin: 0px 40px;
+            margin: 0px 36px;
+
         }
 
         .auth-form__socials--google {
@@ -160,9 +157,9 @@
 
         .image {
             width: 500px;
-            height: 500px;
-            margin-top: 215px;
-            border-radius: 4px;
+            height: 700px;
+            margin-top: 115px;
+            border-radius: 5px;
         }
 
         .password-container {
@@ -171,7 +168,7 @@
 
         .password-toggle {
             position: absolute;
-            top: 68%;
+            top: 55%;
             right: 10px;
             transform: translateY(10%);
             cursor: pointer;
@@ -185,29 +182,81 @@
             content: "\f06e";
         }
 
+        .radio-group-horizontal {
+            display: flex;
+            justify-content: center;
+            margin-right: 100px;
 
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 30px;
+        }
+
+        input[type="radio"] {
+            opacity: 0;
+            position: absolute;
+            cursor: pointer;
+        }
+
+        .checkmark {
+            display: inline-block;
+            position: relative;
+            height: 18px;
+            width: 18px;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .checkmark::after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            height: 10px;
+            width: 10px;
+            border-radius: 50%;
+            background-color: #3e64af;
+        }
+
+        input[type="radio"]:checked + .checkmark::after {
+            transform: translate(-50%, -50%) scale(1);
+        }
     </style>
-
 
 </head>
 <body>
+
+
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
       integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
       crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
-
 <div class="main">
     <img src="https://dcassetcdn.com/design_img/1121657/142857/142857_6073705_1121657_81460545_image.jpg"
          alt="" class="image">
-    <form action="" method="post" class="form" id="form-2">
-        <h3 class="heading">Đăng nhập</h3>
-        <a href="/register" class="heading-login">Đăng ký</a>
 
+    <form action="" method="post" class="form" >
+        <h3 class="heading">Đăng ký</h3>
+        <a href="/" class="heading-login">Đăng nhập</a>
         <div class="spacer"></div>
+        <div class="form-group">
+            <label for="usename" class="form-label">Tên đầy đủ</label>
+            <input id="usename" name="usename" type="text" placeholder="VD: Lê Quang" class="form-control">
+            <span class="form-message"></span>
+        </div>
 
         <div class="form-group">
             <label for="email" class="form-label">Email</label>
-            <input id="email" name="email" type="text" placeholder="VD: email@domain.com" class="form-control">
+            <input id="email" name="email" type="text" placeholder="VD: quang@gmail.com" class="form-control">
             <span class="form-message"></span>
         </div>
 
@@ -218,7 +267,46 @@
             <i class="fa fa-eye password-toggle"></i>
         </div>
 
-        <button class="form-submit">Đăng nhập</button>
+        <div class="form-group">
+            <label class="form-label">Số điện thoại</label>
+            <input id="phone" name="phone" type="number" placeholder="VD: 0987******" min="0" max="99999999999" class="form-control">
+            <span class="form-message"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Địa chỉ</label>
+<!--            <input id="address" name="address" type="text" placeholder="VD:Hà Nội" class="form-control">-->
+<!--            <span class="form-message"></span>-->
+            <select name="address">
+                <option value="hanoi">Hà Nội</option>
+                <option value="hochiminh">TP. Hồ Chí Minh</option>
+                <option value="thanhhoa">Thanh Hóa</option>
+                <option value="danang">Đà Nẵng</option>
+                <option value="ninhbinh">Ninh Bình</option>
+                <option value="namdinh">Nam Định</option>
+                <option value="vungtau">Vũng Tàu</option>
+                <option value="phuquoc">Phú Quốc</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Vai trò</label>
+
+            <div class="radio-group-horizontal">
+                <label>
+                    <input type="radio" name="roles" value="User">
+                    <span class="checkmark"></span>
+                    User
+                </label>
+                <label>
+                    <input type="radio" name="roles" value="Admin">
+                    <span class="checkmark"></span>
+                    Admin
+                </label>
+            </div>
+        </div>
+
+        <button type="submit" class="form-submit">Đăng ký</button>
 
 
         <div class="auth-form__socials">
@@ -233,7 +321,6 @@
         </div>
     </form>
 </div>
-
 
 <script>
 
@@ -251,6 +338,5 @@
         }
     });
 </script>
-
 </body>
 </html>
