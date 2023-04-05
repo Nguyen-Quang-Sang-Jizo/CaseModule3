@@ -1,17 +1,28 @@
-const mysql = require('mysql');
+const mysql = require('mysql')
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '123456',
-    database: 'productManager',
-    charset: 'utf8_general_ci'
-});
-
-connection.connect(function (err) {
-    if (err) {
-        throw err.stack;
+class Connection {
+    configToMySQL = {
+        host: 'localhost',
+        user: 'root',
+        password: '123456',
+        database: 'productManager',
+        charset: 'utf8_general_ci'
     }
-    else
-        console.log("connect success");
-})
+
+    getConnection = () => {
+        return mysql.createConnection(this.configToMySQL);
+    }
+
+    connectToMySQL = () => {
+        this.getConnection().connect((err) => {
+            if (err) {
+                console.log(err)
+            } else {
+                console.log('Connect database success')
+            }
+        })
+    }
+}
+
+module.exports = new Connection();
+
