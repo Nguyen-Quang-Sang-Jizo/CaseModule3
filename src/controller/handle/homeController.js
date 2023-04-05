@@ -6,7 +6,7 @@ class HomeController {
         let productHtml = ''
         home.map(item => {
             productHtml += `
-            <tr >
+            <tr>
                 <th scope="row">${item.ProductName}</th>
                 <td><a href="/${item.ProductName}"><img src="${item.Image}"></a></td>
                 <td>${item.Price}</td>
