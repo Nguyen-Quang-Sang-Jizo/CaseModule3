@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38a8288e-87c0-4949-9d20-5b87d24855d2" name="Changes" comment="" />
+    <list default="true" id="38a8288e-87c0-4949-9d20-5b87d24855d2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/controller/handle/homeController.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/service/homeService.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/home/details.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/home/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/router.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -51,7 +62,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="1502016f-3255-41c0-8470-6ed3ab53d643" name="Changes" comment="" />
+      <changelist id="38a8288e-87c0-4949-9d20-5b87d24855d2" name="Changes" comment="" />
       <created>1680589884420</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -61,6 +72,7 @@
       <workItem from="1680647413435" duration="653000" />
       <workItem from="1680655434727" duration="332000" />
       <workItem from="1680655780440" duration="1362000" />
+      <workItem from="1680658687015" duration="17840000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1680657001082</created>
