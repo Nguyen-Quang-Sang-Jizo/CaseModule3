@@ -10,7 +10,7 @@ class HomeService {
 
     findAll = () => {
         return new Promise((resolve, reject) => {
-            this.connect.query(`select p.productName, p.image, p.price
+            this.connect.query(`select p.ProductName, p.Image, p.Price
                                 from product p;`, (err, product) => {
                   if (err){
                       reject(err)

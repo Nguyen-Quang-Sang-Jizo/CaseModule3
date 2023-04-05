@@ -7,9 +7,9 @@ class HomeController {
         home.map(item => {
             productHtml += `
             <tr >
-                <th scope="row">${item.productName}</th>
-                <td><a href="/${item.productName}"><img src="${item.image}"></a></td>
-                <td>${item.price}</td>
+                <th scope="row">${item.ProductName}</th>
+                <td><a href="/${item.ProductName}"><img src="${item.Image}"></a></td>
+                <td>${item.Price}</td>
                 <td style="margin-top: 50px;border-top: red" type="button" class="btn btn-outline-danger">Thêm vào giỏ hàng</td>
             </tr>
             `
