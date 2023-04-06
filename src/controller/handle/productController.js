@@ -1,6 +1,5 @@
 const fs = require('fs')
 const productService = require('../../service/productService');
-const categoryService = require('../../service/categoryService');
 class ProductController {
     getHtmlProducts = (home, indexHtml) => {
         let productHtml = ''
@@ -10,7 +9,7 @@ class ProductController {
                 <th scope="row">${item.ProductName}</th>
                 <td><a href="/details"><img style="width: 100px;height: 100px" src="${item.Image}"></a></td>
                 <td>${item.Price}</td>
-                <td><button style="margin-top: 50px" class="btn btn-outline-info">Thêm vào giỏ hàng</button></td>
+                <td><button style="margin-top: 26px" class="btn btn-outline-info">Thêm vào giỏ hàng</button></td>
             </tr>
             `
         })
@@ -26,27 +25,29 @@ class ProductController {
         })
     }
 
-showDetails = (req, res, id) => {
+    showDetails = (req, res, id) => {
         if (req.method === 'GET') {
-            fs.readFile('./view/product/details.html', 'utf-8', async (err, editHtml) => {
+            fs.readFile('./view/product/details.html', 'utf-8', async (err, detailHtml) => {
                 let product = await productService.findById(id);
-                let categories = await categoryService.findAll();
-                editHtml = editHtml.replace('{name}', product.name_product);
-                editHtml = editHtml.replace('{price}', product.price);
-                editHtml = editHtml.replace('{description}', product.description)
-                let htmlCategory = '';
-                categories.map(item => {
-                    htmlCategory += `<option value="${item.id}">${item.name_category}</option>`
+                let detailsHtml = '';
+                product.map(item => {
+                    detailsHtml += `
+                        <h1>${item.ProductName}</h1>
+                        <h1>${item.Price}</h1>
+                        <h1>${item.Quanytity}</h1>
+                        <h1>${item.Image}</h1>
+                        <h1>${item.Details}</h1>
+                    `
                 })
-                editHtml = editHtml.replace('{details}', htmlCategory);
-                res.write(editHtml);
+                detailHtml = detailHtml.replace('{details}', detailHtml);
+                res.write(detailHtml);
                 res.end();
             })
         } else {
 
         }
 
-}
+    }
 }
 
 module.exports = new ProductController();
