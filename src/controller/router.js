@@ -3,9 +3,10 @@ const userController = require('./handle/userController');
 
 const router = {
     "home" : productController.showHome,
-    "edit" : productController.editProduct,
+    "detail" : productController.showDetails,
     "" : userController.login,
     "register": userController.register,
+    "search": productController.Search
 };
 
 module.exports = router;

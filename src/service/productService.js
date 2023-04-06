@@ -10,19 +10,20 @@ class ProductService {
 
     findAll = () => {
         return new Promise((resolve, reject) => {
-            this.connect.query(`select * from product;`, (err, products) => {
-                if (err) {
+            this.connect.query(`select *
+                                from product p;`, (err, product) => {
+                if (err){
                     reject(err)
-                } else {
-                    resolve(products)
+                }else{
+                    resolve(product)
                 }
             })
         })
     }
-
     findById = (id) => {
+        console.log(id);
         return new Promise((resolve, reject) => {
-            this.connect.query(`select * from product where product.id = ${id}`, (err, product) => {
+            this.connect.query(`select * from product join category on product.CategoryId = category.Id where product.id = ${id}`, (err, product) => {
                 if (err) {
                     reject(err)
                 } else {

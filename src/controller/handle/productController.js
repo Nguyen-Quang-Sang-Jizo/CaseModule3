@@ -1,61 +1,81 @@
-const fs = require('fs')
+const fs = require('fs');
+const qs = require('qs');
 const productService = require('../../service/productService');
-const categoryService = require('../../service/categoryService');
-const cookie = require('cookie')
 class ProductController {
-    getHtmlProducts = (products, indexHtml) => {
+    getHtmlProducts = (home, indexHtml) => {
         let productHtml = ''
-        products.map(item => {
+        home.map(item => {
             productHtml += `
             <tr>
-                <th scope="row">${item.id}</th>
-                <td>${item.productName}</td>
-                <td>${item.price}</td>
-                <td>${item.quatity}</td>
-                <td>${item.image}</td>
-                <td><a type="button" class="btn btn-outline-secondary" href="/edit/1">Sửa</a></td>
-                <td><a type="button" class="btn btn-outline-danger">Xóa</a></td>
+                <th scope="row">${item.ProductName}</th>
+                <td><a href="/detail/${item.Id}"><img style="width: 100px;height: 100px" src="${item.Image}"></a></td>
+                <td>${item.Price}</td>
+                <td><button style="margin-top: 26px" class="btn btn-outline-info">Thêm vào giỏ hàng</button></td>
             </tr>
             `
         })
-        indexHtml = indexHtml.replace('{products}', productHtml);
+        indexHtml = indexHtml.replace('{home}', productHtml);
         return indexHtml;
     }
-    showHome = (req, res) => {
-        let cookies = cookie.parse(req.headers.cookie || '');
-        if(cookies.user) {
-            let user = JSON.parse(cookies.user);
-            fs.readFile('./view/index.html', 'utf-8', async (err, indexHtml) => {
-                let products = await productService.findAll();
-                indexHtml = this.getHtmlProducts(products, indexHtml);
-                res.write(indexHtml);
-                res.end();
-            })
-        } else {
-            res.writeHead(301, {location: '/'});
+
+    showHome = (req, res)=>{
+        fs.readFile('./view/product/home.html','utf-8',async (err, homeHtml)=>{
+            let home = await productService.findAll();
+            homeHtml = this.getHtmlProducts(home, homeHtml);
+            res.write(homeHtml);
             res.end();
-        }
+        })
     }
-    editProduct = (req, res, id) => {
+
+    showDetails = (req, res, id) => {
         if (req.method === 'GET') {
-            fs.readFile('./view/product/edit.html', 'utf-8', async (err, editHtml) => {
+            fs.readFile('./view/product/details.html', 'utf-8', async (err, detailsHtml) => {
                 let product = await productService.findById(id);
-                let categories = await categoryService.findAll();
-                console.log(categories)
-                editHtml = editHtml.replace('{name}', product.name_product);
-                editHtml = editHtml.replace('{price}', product.price);
-                editHtml = editHtml.replace('{description}', product.description)
-                let htmlCategory = '';
-                categories.map(item => {
-                    htmlCategory += `<option value="${item.id}">${item.name_category}</option>`
-                })
-                editHtml = editHtml.replace('{categories}', htmlCategory);
-                res.write(editHtml);
+                console.log(product)
+                detailsHtml = detailsHtml.replace('{ProductName}', product.ProductName);
+                detailsHtml = detailsHtml.replace('{Price}', product.Price);
+                detailsHtml = detailsHtml.replace('{Quantity}', product.Quantity);
+                detailsHtml = detailsHtml.replace('{Image}', product.Image);
+                detailsHtml = detailsHtml.replace('{Details}', product.Details);
+                detailsHtml = detailsHtml.replace('{CategoryName}', product.CategoryName);
+                res.write(detailsHtml);
                 res.end();
             })
         } else {
 
         }
+    }
+    Search = (req, res)=>{
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk
+        })
+        req.on('end', async () => {
+            let dataForm = qs.parse(data);
+            let param = dataForm.search;
+            console.log("param", param)
+            let sql = `SELECT * FROM Product WHERE ProductName  like '%${param}%'`;
+            console.log("sql", sql)
+
+            let html = await this.getTemplate('./views/search.html');
+            let Book =  await this.querySQL(sql);
+            let newHTML = '';
+            Book.forEach((item, index) => {
+                newHTML += `<tr>
+                    <th scope="row">${item.ProductName}</th>
+                    <td><a href="/detail/${item.Id}"><img style="width: 100px;height: 100px" src="${item.Image}"></a>
+                    </td>
+                    <td>${item.Price}</td>
+                    <td>
+                        <button style="margin-top: 26px" className="btn btn-outline-info">Thêm vào giỏ hàng</button>
+                    </td>
+                </tr>`
+            });
+
+            html = html.replace('{search}', newHTML)
+            res.write(html)
+            res.end();
+        })
     }
 }
 

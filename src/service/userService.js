@@ -10,7 +10,7 @@ class UserService {
 
     getUser = (user) => {
         return new Promise((resolve, reject) => {
-            this.connect.query(`select * from users where email = '${user.email}' and passwords = '${user.passwords}';`, (err, users) => {
+            this.connect.query(`select * from User where Email = '${user.email}' and Password = '${user.passwords}';`, (err, users) => {
                 if (err) {
                     reject(err)
                 }else {
@@ -21,7 +21,7 @@ class UserService {
     }
     postUser = (userRegister) => {
         return new Promise((resolve, reject) =>{
-            this.connect.query(`insert into users (usename, email, passwords, phone, address, roles) value ('${userRegister.usename}','${userRegister.email}','${userRegister.passwords}',${userRegister.phone}, '${userRegister.address}', '${userRegister.roles}');`,(error, userRegisters) =>{
+            this.connect.query(`insert into User (Username, Email, Password, Phone, Address, Roles) values ('${userRegister.username}','${userRegister.email}','${userRegister.password}',${userRegister.phone}, '${userRegister.address}', '${userRegister.roles}');`,(error, userRegisters) =>{
                 if (error) {
                     reject(error)
                 }else {
