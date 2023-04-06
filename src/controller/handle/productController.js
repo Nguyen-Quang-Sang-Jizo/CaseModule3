@@ -1,8 +1,6 @@
 const fs = require('fs')
 const productService = require('../../service/productService');
 const categoryService = require('../../service/categoryService');
-const cookie = require('cookie')
-const homeService = require("../../service/homeService");
 class ProductController {
     getHtmlProducts = (home, indexHtml) => {
         let productHtml = ''
@@ -21,7 +19,7 @@ class ProductController {
     }
     showHome = (req, res)=>{
         fs.readFile('./view/home/home.html','utf-8',async (err, homeHtml)=>{
-            let home = await homeService.findAll();
+            let home = await productService.findAll();
             homeHtml = this.getHtmlProducts(home, homeHtml);
             res.write(homeHtml);
             res.end();
