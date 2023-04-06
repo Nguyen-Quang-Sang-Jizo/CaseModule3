@@ -2,41 +2,33 @@ const fs = require('fs')
 const productService = require('../../service/productService');
 const categoryService = require('../../service/categoryService');
 const cookie = require('cookie')
+const homeService = require("../../service/homeService");
 class ProductController {
-    getHtmlProducts = (products, indexHtml) => {
+    getHtmlProducts = (home, indexHtml) => {
         let productHtml = ''
-        products.map(item => {
+        home.map(item => {
             productHtml += `
             <tr>
-                <th scope="row">${item.id}</th>
-                <td>${item.productName}</td>
-                <td>${item.price}</td>
-                <td>${item.quatity}</td>
-                <td>${item.image}</td>
-                <td><a type="button" class="btn btn-outline-secondary" href="/edit/1">Sửa</a></td>
-                <td><a type="button" class="btn btn-outline-danger">Xóa</a></td>
+                <th scope="row">${item.ProductName}</th>
+                <td><a href="/${item.ProductName}"><img style="width: 100px;height: 100px" src="${item.Image}"></a></td>
+                <td>${item.Price}</td>
+                <td><button style="margin-top: 50px" class="btn btn-outline-info">Thêm vào giỏ hàng</button></td>
             </tr>
             `
         })
-        indexHtml = indexHtml.replace('{products}', productHtml);
+        indexHtml = indexHtml.replace('{home}', productHtml);
         return indexHtml;
     }
-    showHome = (req, res) => {
-        let cookies = cookie.parse(req.headers.cookie || '');
-        if(cookies.user) {
-            let user = JSON.parse(cookies.user);
-            fs.readFile('./view/index.html', 'utf-8', async (err, indexHtml) => {
-                let products = await productService.findAll();
-                indexHtml = this.getHtmlProducts(products, indexHtml);
-                res.write(indexHtml);
-                res.end();
-            })
-        } else {
-            res.writeHead(301, {location: '/'});
+    showHome = (req, res)=>{
+        fs.readFile('./view/home/home.html','utf-8',async (err, homeHtml)=>{
+            let home = await homeService.findAll();
+            homeHtml = this.getHtmlProducts(home, homeHtml);
+            res.write(homeHtml);
             res.end();
-        }
+        })
     }
-    editProduct = (req, res, id) => {
+
+editProduct = (req, res, id) => {
         if (req.method === 'GET') {
             fs.readFile('./view/product/edit.html', 'utf-8', async (err, editHtml) => {
                 let product = await productService.findById(id);
@@ -56,7 +48,8 @@ class ProductController {
         } else {
 
         }
-    }
+
+}
 }
 
 module.exports = new ProductController();
