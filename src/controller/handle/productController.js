@@ -8,7 +8,7 @@ class ProductController {
             productHtml += `
             <tr>
                 <th scope="row">${item.ProductName}</th>
-                <td><a href="/${item.ProductName}"><img style="width: 100px;height: 100px" src="${item.Image}"></a></td>
+                <td><a href="/details"><img style="width: 100px;height: 100px" src="${item.Image}"></a></td>
                 <td>${item.Price}</td>
                 <td><button style="margin-top: 50px" class="btn btn-outline-info">Thêm vào giỏ hàng</button></td>
             </tr>
@@ -18,7 +18,7 @@ class ProductController {
         return indexHtml;
     }
     showHome = (req, res)=>{
-        fs.readFile('./view/home/home.html','utf-8',async (err, homeHtml)=>{
+        fs.readFile('./view/product/home.html','utf-8',async (err, homeHtml)=>{
             let home = await productService.findAll();
             homeHtml = this.getHtmlProducts(home, homeHtml);
             res.write(homeHtml);
@@ -26,12 +26,11 @@ class ProductController {
         })
     }
 
-editProduct = (req, res, id) => {
+showDetails = (req, res, id) => {
         if (req.method === 'GET') {
-            fs.readFile('./view/product/edit.html', 'utf-8', async (err, editHtml) => {
+            fs.readFile('./view/product/details.html', 'utf-8', async (err, editHtml) => {
                 let product = await productService.findById(id);
                 let categories = await categoryService.findAll();
-                console.log(categories)
                 editHtml = editHtml.replace('{name}', product.name_product);
                 editHtml = editHtml.replace('{price}', product.price);
                 editHtml = editHtml.replace('{description}', product.description)
@@ -39,7 +38,7 @@ editProduct = (req, res, id) => {
                 categories.map(item => {
                     htmlCategory += `<option value="${item.id}">${item.name_category}</option>`
                 })
-                editHtml = editHtml.replace('{categories}', htmlCategory);
+                editHtml = editHtml.replace('{details}', htmlCategory);
                 res.write(editHtml);
                 res.end();
             })
