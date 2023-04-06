@@ -27,18 +27,11 @@ class ProductController {
 
     showDetails = (req, res, id) => {
         if (req.method === 'GET') {
-            fs.readFile('./view/product/details.html', 'utf-8', async (err, detailHtml) => {
-                let product = await productService.findById(id);
-                let detailsHtml = '';
-                product.map(item => {
-                    detailsHtml += `
-                        <h1>${item.ProductName}</h1>
-                        <h1>${item.Price}</h1>
-                        <h1>${item.Quanytity}</h1>
-                        <h1>${item.Image}</h1>
-                        <h1>${item.Details}</h1>
-                    `
-                })
+            fs.readFile('./view/product/details.html', 'utf-8', async (err, detaislHtml) => {
+                let detailHtml ='';
+                detailHtml +=`
+                Hello
+                `
                 detailHtml = detailHtml.replace('{details}', detailHtml);
                 res.write(detailHtml);
                 res.end();
