@@ -6,9 +6,9 @@ const detailsController = require('./handle/detailsController')
 const router = {
     "home" : homeController.showHome,
     "edit" : productController.editProduct,
-    "ik" : userController.login,
+    "" : userController.login,
     "register": userController.register,
-    "": detailsController.showDetails
+    "1": detailsController.showDetails
 };
 
 module.exports = router;

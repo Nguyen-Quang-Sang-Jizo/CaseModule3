@@ -8,7 +8,7 @@ class DetailsController {
             detailsHtml += `
             <tr>
                 <th scope="row">${item.ProductName}</th>
-                <td><a href="/${item.ProductName}"><img src="${item.Image}"></a></td>
+                <td><a href="/1"><img src="${item.Image}"></a></td>
                 <td>${item.Price}</td>
                 <td style="margin-top: 50px;border-top: red" type="button" class="btn btn-outline-danger">Thêm vào giỏ hàng</td>
             </tr>
