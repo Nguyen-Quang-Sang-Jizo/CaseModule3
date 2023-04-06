@@ -44,6 +44,38 @@ class ProductController {
 
         }
     }
+    Search = (req, res)=>{
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk
+        })
+        req.on('end', async () => {
+            let dataForm = qs.parse(data);
+            let param = dataForm.search;
+            console.log("param", param)
+            let sql = `SELECT * FROM Product WHERE ProductName  like '%${param}%'`;
+            console.log("sql", sql)
+
+            let html = await this.getTemplate('./src/views/books/list.html');
+            let Book =  await this.querySQL(sql);
+            let newHTML = '';
+            Book.forEach((book, index) => {
+                newHTML += '<tr>';
+                newHTML += `<td>${book.BookCode}</td>`;
+                newHTML += `<td>${book.BookName}</td>`;
+                newHTML += `<td>${book.Author}</td>`;
+                newHTML += `<td>${book.CategoryCode}</td>`;
+                newHTML += `<td>${book.UnitPrice}</td>`;
+                newHTML += `<td>${book.Quantity}</td>`;
+                newHTML += `<td><img width="150" height="150" src="${book.img}"></td>`
+                newHTML += '</tr>';
+            });
+
+            html = html.replace('{list-book}', newHTML)
+            res.write(html)
+            res.end();
+        })
+    }
 }
 
 module.exports = new ProductController();
