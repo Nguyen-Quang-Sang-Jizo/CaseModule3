@@ -3,7 +3,7 @@ const userController = require('./handle/userController');
 
 const router = {
     "home" : productController.showHome,
-    "details" : productController.showDetails,
+    "detail" : productController.showDetails,
     "" : userController.login,
     "register": userController.register,
 };
