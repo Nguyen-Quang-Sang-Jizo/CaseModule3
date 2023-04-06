@@ -1,4 +1,5 @@
-const fs = require('fs')
+const fs = require('fs');
+const qs = require('qs');
 const productService = require('../../service/productService');
 class ProductController {
     getHtmlProducts = (home, indexHtml) => {
@@ -56,22 +57,22 @@ class ProductController {
             let sql = `SELECT * FROM Product WHERE ProductName  like '%${param}%'`;
             console.log("sql", sql)
 
-            let html = await this.getTemplate('./src/views/books/list.html');
+            let html = await this.getTemplate('./views/search.html');
             let Book =  await this.querySQL(sql);
             let newHTML = '';
-            Book.forEach((book, index) => {
-                newHTML += '<tr>';
-                newHTML += `<td>${book.BookCode}</td>`;
-                newHTML += `<td>${book.BookName}</td>`;
-                newHTML += `<td>${book.Author}</td>`;
-                newHTML += `<td>${book.CategoryCode}</td>`;
-                newHTML += `<td>${book.UnitPrice}</td>`;
-                newHTML += `<td>${book.Quantity}</td>`;
-                newHTML += `<td><img width="150" height="150" src="${book.img}"></td>`
-                newHTML += '</tr>';
+            Book.forEach((item, index) => {
+                newHTML += `<tr>
+                    <th scope="row">${item.ProductName}</th>
+                    <td><a href="/detail/${item.Id}"><img style="width: 100px;height: 100px" src="${item.Image}"></a>
+                    </td>
+                    <td>${item.Price}</td>
+                    <td>
+                        <button style="margin-top: 26px" className="btn btn-outline-info">Thêm vào giỏ hàng</button>
+                    </td>
+                </tr>`
             });
 
-            html = html.replace('{list-book}', newHTML)
+            html = html.replace('{search}', newHTML)
             res.write(html)
             res.end();
         })

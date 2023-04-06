@@ -6,6 +6,7 @@ const router = {
     "detail" : productController.showDetails,
     "" : userController.login,
     "register": userController.register,
+    "search": productController.Search
 };
 
 module.exports = router;

@@ -10,7 +10,7 @@ class UserService {
 
     getUser = (user) => {
         return new Promise((resolve, reject) => {
-            this.connect.query(`select * from User where Email = '${user.email}' and Password = '${user.password}';`, (err, users) => {
+            this.connect.query(`select * from User where Email = '${user.email}' and Password = '${user.passwords}';`, (err, users) => {
                 if (err) {
                     reject(err)
                 }else {
